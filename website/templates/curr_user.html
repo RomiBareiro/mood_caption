@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+   %}
+<h1 style = "text-align: center;">Cellphone caption simulator</h1>
+
+</br></br>
+<body>
+
+   <form action = "http://localhost:5000/curr_mood/" method = "post">
+      
+      <label for="nm">User name</label>
+      <p><input style = "text-align: left; color: rgba(194, 67, 8, 0.842);" type = "text" name = "user_name"  placeholder="John Doe"/></p>
+      <label for="location">Location GPS coordinates</label>
+      <p><input style = "text-align: left; color: rgba(194, 67, 8, 0.842);" type = "text" name = "location" placeholder="-34.6037232 -58.3815931"/></p>
+      <label for="mood">Mood (sad, neutral or happy)</label>
+      <p><input style = "text-align: left; color: rgba(194, 67, 8, 0.842);"type = "text" name = "mood" placeholder="happy" /></p>
+      <label for="mood">Location name (could be empty)</label>
+      <p><input style = "text-align: left; color: rgba(194, 67, 8, 0.842);" type = "text" name = "location_name" placeholder="Buenos Aires" /></p>
+      <p><input type = "submit" value = "submit" /></p>
+   </form>    
+</body>
+
+{% endblock %}

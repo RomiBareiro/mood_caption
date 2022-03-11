@@ -1,0 +1,214 @@
+openapi: 3.0.0
+info:
+  description: Mood caption (STEM)
+  version: 1.0.0
+  title: Mood caption (STEM)
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+tags:
+  - name: Products API
+    description: Test API
+servers:
+  - url: /
+components:
+  schemas:
+    get_current:
+      type: string
+      properties:
+        user_name:
+          type: string
+        location:
+          type: string
+        location_name:
+          type: string
+        mood:
+          type: string
+    get_mood_frequency:
+      type: string
+      properties:
+        user:
+          type: string
+    get_happy_distances:
+      type: string
+      properties:
+        user:
+          type: string
+    get_current_mood_and_location:
+      type: string
+      properties:
+        user:
+          type: string
+    login:
+      type: string
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    sign_up:
+      type: string
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        first_name:
+          type: string
+        psw_confirmation:
+          type: string
+paths:
+  /happy_dist/{user}:
+    get:
+      tags:
+        - Get relative distance from saved locations to current happy location
+      summary: Put your user name to get the distances to your stored places if you are happy
+      parameters:
+        - name: user
+          in: path
+          description: Get happy distances
+          required: true
+          schema:
+            $ref: '#/components/schemas/get_happy_distances'
+      responses:
+        '200':
+          description: OK
+
+        '400':
+          description: You're not happy, so you're not able to get happy distances
+
+        '404':
+          description: NOT FOUND
+
+  /mood_freq/{user}:
+    get:
+      tags:
+        - Get total captured mood from every mood type and calculate distribution from a given user
+      summary: Put your user name to get your mood frequency distribution
+      parameters:
+        - name: user
+          in: path
+          description: Get mood frequency distribution for a given user
+          required: true
+          schema:
+            $ref: '#/components/schemas/get_mood_frequency'
+      responses:
+        '200':
+          description: OK
+
+        '404':
+          description: Distribution not available
+
+  /curr_mood/{user}:
+    get:
+      tags:
+        - Get your current mood and location
+      summary: Put your user name to check your mood and location
+      parameters:
+        - name: user
+          in: path
+          description: Get mood and location for a given user
+          required: true
+          schema:
+            $ref: '#/components/schemas/get_current_mood_and_location'
+      responses:
+        '200':
+          description: OK
+
+        '404':
+          description: Distribution not available
+
+  /login:
+    post:
+      tags:
+        - Login
+      summary: Put your user name and password
+      parameters:
+        - name: email
+          in: query
+          description: E-mail
+          required: true
+          schema:
+            $ref: '#/components/schemas/login'
+        - name: password
+          in: query
+          description: Password
+          required: true
+          schema:
+            $ref: '#/components/schemas/login'
+      responses:
+        '200':
+          description: OK
+
+        '404':
+          description: NOT Found
+  /sign_up:
+    post:
+      tags:
+        - Sign up
+      summary: Sign up
+      parameters:
+        - name: email
+          in: query
+          description: E-mail
+          required: true
+          schema:
+                 $ref: '#/components/schemas/sign_up'
+        - name: password
+          description: Password
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/sign_up'
+        - name: psw_confirmation
+          description: Password confirmation
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/sign_up'
+        - name: first_name
+          description: Name
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/sign_up'
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: NOT Found
+  /curr_mood/:
+    post:
+      tags:
+        - Get current user data
+      summary: Fill your user data from form request
+      parameters:
+        - name: user_name
+          in: query
+          description: User name
+          required: true
+          schema:
+            $ref: '#/components/schemas/get_current'
+        - name: location
+          in: query
+          description: Location GPS coordinates
+          required: true
+          schema:
+            $ref: '#/components/schemas/get_current'
+        - name: location_name
+          in: query
+          description: Location name
+          required: false
+          schema:
+            $ref: '#/components/schemas/get_current'
+        - name: mood
+          in: query
+          description: mood
+          required: true
+          schema:
+            $ref: '#/components/schemas/get_current'
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: NOT Found
